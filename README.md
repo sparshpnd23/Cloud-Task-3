@@ -249,7 +249,7 @@ A security group acts as a virtual firewall for your EC2 instances to control in
             ami           = "ami-ff82f990"
             instance_type = "t2.micro"
             key_name      =  "sparsh_key"
-            subnet_id     = "${aws_subnet.sparsh_subnet.id}"
+            subnet_id     = "${aws_subnet.sparsh_public_subnet.id}"
             security_groups = ["${aws_security_group.sparsh_sg.id}"]
             associate_public_ip_address = true
             availability_zone = "ap-south-1a"
@@ -267,7 +267,7 @@ A security group acts as a virtual firewall for your EC2 instances to control in
                         ami             =  "ami-08706cb5f68222d09"
                         instance_type   =  "t2.micro"
                         key_name        =  "sparsh_key"
-                        subnet_id     = "${aws_subnet.sparsh_private_subnet.id}"
+                        subnet_id     = "${aws_subnet.sparsh_private_private_subnet.id}"
                         availability_zone = "ap-south-1a"
                         security_groups = ["${aws_security_group.sparsh_sg_private.id}"]
                         

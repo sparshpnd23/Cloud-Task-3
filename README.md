@@ -106,4 +106,134 @@ The terraform code to create the Gateway is as follows :
               }
               
               
-**Step - 5:** Next, we create a Routing Table & associate it with the Public Subnet. 
+**Step - 5:** Next, we create a Routing Table & associate it with the Public Subnet. A routing table, or routing information base (RIB), is an electronic file or database-type object that is stored in a router or a networked computer, holding the routes (and in some cases, metrics associated with those routes) to particular network destinations. This information contains the topology of the network close to it. The terrafrom code for the same is as follows :
+
+                resource "aws_route_table" "sparsh_rt" {
+                vpc_id = "${aws_vpc.sparsh_vpc.id}"
+
+                route {
+                  cidr_block = "0.0.0.0/0"
+                  gateway_id = "${aws_internet_gateway.sparsh_gw.id}"
+                }
+
+                tags = {
+                  Name = "sparsh_rt"
+                }
+              }
+
+
+              resource "aws_route_table_association" "sparsh_rta" {
+                subnet_id = "${aws_subnet.sparsh_public_subnet.id}"
+                route_table_id = "${aws_route_table.sparsh_rt.id}"
+              }
+              
+              
+              
+**Step - 6:** Now, we create our security group which will be used while launching Wordpress. This security group has the permissions for outside connectivity.
+A security group acts as a virtual firewall for your EC2 instances to control incoming and outgoing traffic. Inbound rules control the incoming traffic to your instance, and outbound rules control the outgoing traffic from your instance. Security groups are associated with network interfaces.
+
+
+               resource "aws_security_group" "sparsh_sg" {
+
+                name        = "sparsh_sg"
+                vpc_id      = "${aws_vpc.sparsh_vpc.id}"
+
+
+                ingress {
+                
+                  description = "allow_http"
+                  from_port   = 80
+                  to_port     = 80
+                  protocol    = "tcp"
+                  cidr_blocks = [ "0.0.0.0/0"]
+
+                }
+
+
+                   ingress {
+                 
+                   description = "allow_ssh"
+                   from_port   = 22
+                   to_port     = 22
+                   protocol    = "tcp"
+                   cidr_blocks = ["0.0.0.0/0"]
+                 }
+                 
+                 ingress {
+                 
+                   description = "allow_icmp"
+                   from_port   = 0
+                   to_port     = 0
+                   protocol    = "tcp"
+                   cidr_blocks = ["0.0.0.0/0"]
+                 }
+                 
+                 ingress {
+                 
+                   description = "allow_mysql"
+                   from_port   = 3306
+                   to_port     = 3306
+                   protocol    = "tcp"
+                   cidr_blocks = ["0.0.0.0/0"]
+                 }
+
+                 egress {
+                   from_port   = 0
+                   to_port     = 0
+                   protocol    = "-1"
+                   cidr_blocks = ["0.0.0.0/0"]
+                 }
+                 
+                 
+                  tags = {
+
+                  Name = "sparsh_sg"
+                }
+              }
+
+
+**Step : 7** Now, we create another security group which will be used to launch MYSQL. This security group will keep the MYSQL accessible only through the wordpress and not through outside world.
+
+
+
+                resource "aws_security_group" "sparsh_sg_private" {
+
+                name        = "sparsh_sg_private"
+                vpc_id      = "${aws_vpc.sparsh_vpc.id}"
+              
+                ingress {
+                
+                 description = "allow_mysql"
+                 from_port   = 3306
+                 to_port     = 3306
+                 protocol    = "tcp"
+                 security_groups = [aws_security_group.sparsh_sg.id]
+                 
+               }
+
+
+               ingress {
+               
+                 description = "allow_icmp"
+                 from_port   = -1
+                 to_port     = -1
+                 protocol    = "icmp"
+                 security_groups = [aws_security_group.sparsh_sg.id]
+                 
+               }
+
+               egress {
+               
+                from_port   = 0
+                to_port     = 0
+                protocol    = "-1"
+                cidr_blocks = ["0.0.0.0/0"]
+                ipv6_cidr_blocks =  ["::/0"]
+              }
+              
+              
+              tags = {
+
+                  Name = "sparsh_sg_private"
+                }
+              }

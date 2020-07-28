@@ -28,3 +28,67 @@ b) private subnet [ Restricted for Public World! ]
 6- Launch an ec2 instance which has MYSQL already setup with security group allowing port 3306 in private subnet so that our wordpress VM can connect with the same. Also attach the key with the same.
 
 Note: Wordpress instance has to be part of public subnet so that our client can connect with our site. MYSQL instance has to be part of private subnet so that outside world can't connect to it. Don't forgot to add auto ip assign and auto dns name assignment option should also be enabled.
+
+
+
+# Steps :-
+
+**Step - 1:**  First of all, configure your AWS profile in your local system using cmd. Fill your details & press Enter.
+
+
+                  aws configure --profile Sparsh
+                  AWS Access Key ID [****************WO3Z]:
+                  AWS Secret Access Key [****************b/hJ]:
+                  Default region name [ap-south-1]:
+                  Default output format [None]:
+                  
+                 
+**Step - 2:** Next, we need to create a VPC. Amazon Virtual Private Cloud (Amazon VPC) lets you provision a logically isolated section of the AWS Cloud where you can launch AWS resources in a virtual network that you define. You have complete control over your virtual networking environment, including selection of your own IP address range, creation of subnets, and configuration of route tables and network gateways. You can use both IPv4 and IPv6 in your VPC for secure and easy access to resources and applications.
+
+The terrfaorm code to create a VPC is as follows :-
+
+
+                resource "aws_vpc" "sparsh_vpc" {
+                cidr_block = "192.168.0.0/16"
+                instance_tenancy = "default"
+                enable_dns_hostnames = true
+                tags = {
+                  Name = "sparsh_vpc"
+                }
+              }
+              
+              
+              
+**Step - 3:** Now, we need to create two subnets in this VPC :
+
+a) public subnet [ Accessible for Public World! ] 
+b) private subnet [ Restricted for Public World! ]
+
+
+Subnet is “part of the network”, in other words, part of entire availability zone. Each subnet must reside entirely within one Availability Zone and cannot span zones.
+The terraform code to create both the Private & the Public Subnet is as follows :
+
+
+                resource "aws_subnet" "sparsh_public_subnet" {
+                vpc_id = "${aws_vpc.sparsh_vpc.id}"
+                cidr_block = "192.168.0.0/24"
+                availability_zone = "ap-south-1a"
+                map_public_ip_on_launch = "true"
+                tags = {
+                  Name = "sparsh_public_subnet"
+                }
+              }
+              
+              
+              
+              resource "aws_subnet" "sparsh_private_subnet" {
+                vpc_id = "${aws_vpc.sparsh_vpc.id}"
+                cidr_block = "192.168.0.0/24"
+                availability_zone = "ap-south-1a"
+                tags = {
+                  Name = "sparsh_private_subnet"
+                }
+              }
+              
+              
+ 

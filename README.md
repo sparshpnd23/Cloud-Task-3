@@ -285,7 +285,7 @@ A security group acts as a virtual firewall for your EC2 instances to control in
  
  Then, we run the command **terraform apply --auto-approve**. This will run the code and create the mentioned resources on the configured AWS Cloud.
  
- ![](ct3/apply.png)
+ ![](ct3/apply1.png)
  
  Soon, we see that all our resources are added !!
  ![](/ct3/done.png)

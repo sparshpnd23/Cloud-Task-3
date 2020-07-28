@@ -275,3 +275,34 @@ A security group acts as a virtual firewall for your EC2 instances to control in
                          Name = "sparsh_sql"
                          }
                        } 
+                       
+                       
+                       
+ **Step - 9:** Now, we run our terraform code. For doing so, we first run the command **terraform init**. This will download the necessary plugins.
+ 
+ ![](/ct3/init.png)
+ 
+ 
+ Then, we run the command **terraform apply --auto-approve**. This will run the code and create the mentioned resources on the configured AWS Cloud.
+ 
+ ![](ct3/apply.png)
+ 
+ Soon, we see that all our resources are added !!
+ ![](/ct3/done.png)
+ 
+ 
+ Now, we go to our AWS dashboard & see our Wordpress & MYSQL running in the EC2 section.
+ 
+ ![](/ct3/running.png)
+ 
+ We can access our Wordpress site using the Public IP address that is mentioned in the instance description.
+ 
+ ![](/ct3/wp.png)
+ 
+ Eureka !! We did it !!
+ 
+We successfully launched a Web Portal for our company with a dedicated Database Server that can be accessed only by the Wordpress, facilitating the security of our content.
+
+Now sit back & congratulate yourself for doing this !!
+
+![](/ct3/congrats.jpg)

@@ -61,7 +61,9 @@ The terrfaorm code to create a VPC is as follows :-
               
 **Step - 3:** Now, we need to create two subnets in this VPC :
 
+
 a) public subnet [ Accessible for Public World! ] 
+
 b) private subnet [ Restricted for Public World! ]
 
 
@@ -92,3 +94,16 @@ The terraform code to create both the Private & the Public Subnet is as follows 
               
               
  
+**Step - 4:** Next, we create a Public facing Internet Gateway. An internet gateway is a horizontally scaled, redundant, and highly available VPC component that allows communication between your VPC and the internet. 
+
+The terraform code to create the Gateway is as follows :
+
+                resource "aws_internet_gateway" "sparsh_gw" {
+                vpc_id = "${aws_vpc.sparsh_vpc.id}"
+                tags = {
+                  Name = "sparsh_gw"
+                }
+              }
+              
+              
+**Step - 5:** Next, we create a Routing Table & associate it with the Public Subnet. 

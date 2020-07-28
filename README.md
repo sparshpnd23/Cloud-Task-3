@@ -85,7 +85,7 @@ The terraform code to create both the Private & the Public Subnet is as follows 
               
               resource "aws_subnet" "sparsh_private_subnet" {
                 vpc_id = "${aws_vpc.sparsh_vpc.id}"
-                cidr_block = "192.168.0.0/24"
+                cidr_block = "192.168.1.0/24"
                 availability_zone = "ap-south-1a"
                 tags = {
                   Name = "sparsh_private_subnet"

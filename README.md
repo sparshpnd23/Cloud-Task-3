@@ -6,7 +6,7 @@ The motive is to create a fully secured Web Portal for our company. For this, I 
 
 # What is Wordpress ?
 
-WordPress (WP, WordPress.org) is a free and open-source content management system (CMS) written in PHP and paired with a MySQL or MariaDB database. Features include a plugin architecture and a template system, referred to within WordPress as Themes. WordPress was originally created as a blog-publishing system but has evolved to support other types of web content including more traditional mailing lists and forums, media galleries, membership sites, learning management systems (LMS) and online stores. WordPress is used by more than 60 million websites, including 33.6% of the top 10 million websites as of April 2019,[6][7] WordPress is one of the most popular content management system solutions in use. WordPress has also been used for other application domains such as pervasive display systems (PDS).
+WordPress (WP, WordPress.org) is a free and open-source content management system (CMS) written in PHP and paired with a MySQL or MariaDB database. Features include a plugin architecture and a template system, referred to within WordPress as Themes. WordPress was originally created as a blog-publishing system but has evolved to support other types of web content including more traditional mailing lists and forums, media galleries, membership sites, learning management systems (LMS) and online stores. WordPress is used by more than 60 million websites, including 33.6% of the top 10 million websites as of April 2019, WordPress is one of the most popular content management system solutions in use. WordPress has also been used for other application domains such as pervasive display systems (PDS).
 
 
 # Project Description :
@@ -192,7 +192,7 @@ A security group acts as a virtual firewall for your EC2 instances to control in
               }
 
 
-**Step : 7** Now, we create another security group which will be used to launch MYSQL. This security group will keep the MYSQL accessible only through the wordpress and not through outside world.
+**Step : 7** Now, we create another security group which will be used to launch MySQL. This security group will keep the MySQL accessible only through the wordpress and not through outside world.
 
 
 
@@ -240,7 +240,7 @@ A security group acts as a virtual firewall for your EC2 instances to control in
               
               
               
-  **Step - 8:** Now, we are ready to go. We launch our Wordpress and MYSQL instances using all the resources that we have created above. 
+  **Step - 8:** Now, we are ready to go. We launch our Wordpress and MySQL instances using all the resources that we have created above. 
   
   **Wordpress* -
 
@@ -261,7 +261,7 @@ A security group acts as a virtual firewall for your EC2 instances to control in
             } 
 
 
- **MYSQL** -
+ **MySQL** -
  
                         resource "aws_instance" "sql" {
                         ami             =  "ami-08706cb5f68222d09"
